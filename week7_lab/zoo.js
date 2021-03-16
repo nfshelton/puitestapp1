@@ -17,20 +17,23 @@ function zebra(name, age) {
 	this.image = "photo3.jpg";
 }
 
-let animals = (new redPanda(), new elephant(), new zebra());
+let animals = [new redPanda(), new elephant(), new zebra()];
 let names = ["patiria","anaya","javon", "lucy","paul"];
 
 function generateRandomIndex(maxIndex){
 	return Math.floor(Math.random()*maxIndex);
 }
 function generateRandomName(){
-	let randomIndex = names[generateRandomIndex(maxIndex)];
+	let randomIndex = names[generateRandomIndex(names.length)];
+	return randomIndex;
 }
 function generateRandomAge(){
 	let randomAge = generateRandomIndex(9);
+	return randomAge;
 }
 function generateRandomAnimal(){
-	let randomIdx = animals[generateRandomIndex(maxIndex)];
+	let index = generateRandomIndex(animals.length);
+	let randomAnimal = animals[index];
 	if (randomAnimal instanceof elephant){
 		return new elephant(generateRandomName(), generateRandomAge());
 	}
@@ -40,8 +43,13 @@ function generateRandomAnimal(){
 	else if (randomAnimal instanceof zebra){
 		return new zebra(generateRandomName(), generateRandomAge());
 	}
+}
 function onLoad() {
 	var animal = generateRandomAnimal();
+	let image = document.getElementById("animal-image");
+	image.setAttribute("src", animal.image);
+	image.setAttribute("alt", animal.image_alt);
+	let header = document.getElementById("animal-header");
+	header.innerText = animal.name + " " + animal.age;
 }
 
-}
